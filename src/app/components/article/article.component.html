@@ -7,10 +7,13 @@
     <p class="line-clamp">{{ article.content }}</p>
   </mat-card-content>
 
-  <mat-card-actions align="end">
-    <button mat-icon-button aria-label="Read more.." (click)="readMore()">
-      <mat-icon>open_in_new</mat-icon>
-    </button>
+  <mat-card-actions >
+    <div class="d-flex justify-content-around">
+      <h3>source : {{article.source.name}}</h3>
+      <button mat-icon-button aria-label="Read more.." (click)="readMore()">
+        <mat-icon>open_in_new</mat-icon>
+      </button>
+    </div>
   </mat-card-actions>
   <mat-card-footer>
     <p>Published at {{article.publishedAt | date:'medium'}}</p>
