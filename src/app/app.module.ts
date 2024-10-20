@@ -10,6 +10,12 @@ import { MatCardModule } from '@angular/material/card';
 import {MatIconModule} from "@angular/material/icon";
 import { ArticleListComponent } from './components/article-list/article-list.component';
 import {HttpClientModule} from "@angular/common/http";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +30,10 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserAnimationsModule,
     MatCardModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
