@@ -13,6 +13,7 @@ import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import { InputTextModule } from 'primeng/inputtext';
 import {AutoCompleteModule} from "primeng/autocomplete";
+import {CheckboxModule} from "primeng/checkbox";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {AutoCompleteModule} from "primeng/autocomplete";
     FormsModule, ReactiveFormsModule, CalendarModule,
     CardModule,
     InputTextModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    CheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

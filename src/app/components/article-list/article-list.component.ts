@@ -16,7 +16,7 @@ const year = today.getFullYear();
 export class ArticleListComponent implements OnInit {
   items : Article[] =[];
   backup : Article[] =[];
-  rangeDates: Date[] | undefined;
+  rangeDates: Date[] =[new Date(),new Date()];
   itemsSuggestion: any[] | undefined;
 
   selectedItem: any;
@@ -24,9 +24,11 @@ export class ArticleListComponent implements OnInit {
   suggestions: any[] =[];
 
   search(event: AutoCompleteCompleteEvent) {
+    console.log('ok')
     this.suggestions = this.backup.map(item => item.source.name);
   }
   loading= false;
+  filterList: string[]=[];
 
   constructor(private newsService:NewsapiCrudService) { }
 
@@ -37,18 +39,20 @@ export class ArticleListComponent implements OnInit {
   filterResults(value: string) {
     if(value.trim()!=''){
       this.loading =true;
-      if(this.rangeDates != undefined){
+      if(this.rangeDates != undefined && this.filterList.includes('ByDate')){
         let startDate=formatDate(this.rangeDates[0], 'yyyy-MM-dd', 'en_US');
         let endDate=formatDate(this.rangeDates[1], 'yyyy-MM-dd', 'en_US');
         this.newsService.getEverythingFilterByDateRange('https://newsapi.org/v2/everything',
           value,startDate,endDate)
           .subscribe(
             res => {
-              console.log(res)
               this.items = res.articles;
               this.backup = res.articles;
               this.suggestions = this.backup.map(item => item.source.name);
-              this.loading =true;
+              this.loading =false;
+              if(this.selectedItem && this.selectedItem.trim()!=''){
+                this.filterBySourceResults(this.selectedItem);
+              }
             }
           );
       }
@@ -59,6 +63,9 @@ export class ArticleListComponent implements OnInit {
             this.backup = res.articles;
             this.suggestions = this.backup.map(item => item.source.name);
             this.loading =false;
+            if(this.selectedItem && this.selectedItem.trim()!=''){
+              this.filterBySourceResults(this.selectedItem);
+            }
           }
         );
       }
@@ -71,6 +78,7 @@ export class ArticleListComponent implements OnInit {
   }
 
   filterBySourceResults(value: string) {
+    console.log(value)
     this.items = this.backup;
     if (value && value.trim()!=''){
       this.items = this.items.filter(res => {

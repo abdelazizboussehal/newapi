@@ -1,33 +1,50 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
-    <div class="col-4 p-2">
+    <div class="col-10 p-2">
       <div class="row d-flex justify-content-center ">
-        <input  class="col-9" pInputText type="text" placeholder="anything you want" #filter>
-        <!--<input  class="col-9" pInputText type="text" placeholder="filter by source" #filterbysource>-->
-        <div class="card flex justify-content-center">
-          <p-autoComplete
-            *ngIf="suggestions.length>0"
-            [(ngModel)]="selectedItem"
-            [suggestions]="suggestions"
-            (completeMethod)="search($event)" />
-        </div>
-
-        <p-calendar
-          [(ngModel)]="rangeDates"
-          selectionMode="range"
-          [readonlyInput]="true" />
         <div>
+          <input class="col-4" pInputText type="text" placeholder="anything you want" #filter>
+          <p-checkbox
+            class="m-1"
+            [(ngModel)]="filterList"
+            label="by date"
+            name="filterList"
+            value="ByDate"/>
+          <p-checkbox
+            class="m-1"
+            [(ngModel)]="filterList"
+            label="by Source"
+            name="filterList"
+            value="BySource"/>
+          <div class="col-12" *ngIf="filterList.includes('BySource')">
+            <p-autoComplete
+              class="col-12"
+              placeholder="tab to filter by Source"
+              [readonly]="suggestions.length<1"
+              [(ngModel)]="selectedItem"
+              [suggestions]="suggestions"
+              (completeMethod)="search($event)"
+              (onSelect)="filterBySourceResults($event.value)"/>
+          </div>
+          <div class="col-12" *ngIf="filterList.includes('ByDate')">
+            <p-calendar
+              [(ngModel)]="rangeDates"
+              selectionMode="range"
+              [readonlyInput]="true"/>
+          </div>
+
+
           <p-button
             label="Search"
             icon="pi pi-check"
             [loading]="loading"
-            (onClick)="filterResults(filter.value)" />
-
-          <!--<button class="col-3 btn btn-outline-primary" (click)="filterBySourceResults(filterbysource.value)">Search</button>-->
+            (onClick)="filterResults(filter.value)"/>
         </div>
+
+
       </div>
-      <div class="m-2"  *ngFor="let item of items">
-        <app-article [article] ="item"></app-article>
+      <div class="m-2" *ngFor="let item of items">
+        <app-article [article]="item"></app-article>
       </div>
     </div>
 
