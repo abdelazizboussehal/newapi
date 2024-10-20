@@ -3,8 +3,19 @@
     <div class="col-4 p-2">
       <div class="row d-flex justify-content-center ">
         <input  class="col-9" pInputText type="text" placeholder="anything you want" #filter>
+        <!--<input  class="col-9" pInputText type="text" placeholder="filter by source" #filterbysource>-->
+        <div class="card flex justify-content-center">
+          <p-autoComplete
+            *ngIf="suggestions.length>0"
+            [(ngModel)]="selectedItem"
+            [suggestions]="suggestions"
+            (completeMethod)="search($event)" />
+        </div>
 
-        <input  class="col-9" pInputText type="text" placeholder="filter by source" #filterbysource>
+        <p-calendar
+          [(ngModel)]="rangeDates"
+          selectionMode="range"
+          [readonlyInput]="true" />
         <div>
           <p-button
             label="Search"
@@ -12,7 +23,7 @@
             [loading]="loading"
             (onClick)="filterResults(filter.value)" />
 
-          <button class="col-3 btn btn-outline-primary" (click)="filterBySourceResults(filterbysource.value)">Search</button>
+          <!--<button class="col-3 btn btn-outline-primary" (click)="filterBySourceResults(filterbysource.value)">Search</button>-->
         </div>
       </div>
       <div class="m-2"  *ngFor="let item of items">

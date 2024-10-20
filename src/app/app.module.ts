@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import { InputTextModule } from 'primeng/inputtext';
+import {AutoCompleteModule} from "primeng/autocomplete";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { InputTextModule } from 'primeng/inputtext';
     HttpClientModule,
     FormsModule, ReactiveFormsModule, CalendarModule,
     CardModule,
-    InputTextModule
+    InputTextModule,
+    AutoCompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

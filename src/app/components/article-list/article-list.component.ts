@@ -3,6 +3,7 @@ import {NewsapiCrudService} from "../../utilis/newsapi-crud.service";
 import {Article} from "../../models/article";
 import {FormControl, FormGroup} from "@angular/forms";
 import {formatDate} from "@angular/common";
+import {AutoCompleteCompleteEvent} from "primeng/autocomplete";
 const today = new Date();
 const month = today.getMonth();
 const year = today.getFullYear();
@@ -16,14 +17,18 @@ export class ArticleListComponent implements OnInit {
   items : Article[] =[];
   backup : Article[] =[];
   rangeDates: Date[] | undefined;
+  itemsSuggestion: any[] | undefined;
 
-  readonly campaignOne = new FormGroup({
-    start: new FormControl(new Date(year, month, 13)),
-    end: new FormControl(new Date(year, month, 16)),
-  });
+  selectedItem: any;
+
+  suggestions: any[] =[];
+
+  search(event: AutoCompleteCompleteEvent) {
+    this.suggestions = this.backup.map(item => item.source.name);
+  }
   loading= false;
 
-  constructor(private newsservice:NewsapiCrudService) { }
+  constructor(private newsService:NewsapiCrudService) { }
 
   ngOnInit(): void {
 
@@ -32,15 +37,33 @@ export class ArticleListComponent implements OnInit {
   filterResults(value: string) {
     if(value.trim()!=''){
       this.loading =true;
-      this.newsservice.getEverything('https://newsapi.org/v2/everything',value).subscribe(
-        res => {
-          this.items = res.articles
-          this.backup = res.articles
-          this.loading =false;
-        }
-      );
-    }
+      if(this.rangeDates != undefined){
+        let startDate=formatDate(this.rangeDates[0], 'yyyy-MM-dd', 'en_US');
+        let endDate=formatDate(this.rangeDates[1], 'yyyy-MM-dd', 'en_US');
+        this.newsService.getEverythingFilterByDateRange('https://newsapi.org/v2/everything',
+          value,startDate,endDate)
+          .subscribe(
+            res => {
+              console.log(res)
+              this.items = res.articles;
+              this.backup = res.articles;
+              this.suggestions = this.backup.map(item => item.source.name);
+              this.loading =true;
+            }
+          );
+      }
+      else{
+        this.newsService.getEverything('https://newsapi.org/v2/everything',value).subscribe(
+          res => {
+            this.items = res.articles;
+            this.backup = res.articles;
+            this.suggestions = this.backup.map(item => item.source.name);
+            this.loading =false;
+          }
+        );
+      }
 
+    }
   }
 
   updateStartDate(event:any) {
@@ -58,7 +81,7 @@ export class ArticleListComponent implements OnInit {
   filterByDateRangeResults(value:string){
   /*  let startDate=formatDate(this.campaignOne.value.start, 'yyyy-MM-dd', 'en_US');
     let endDate=formatDate(this.campaignOne.value.end, 'yyyy-MM-dd', 'en_US');
-    this.newsservice.getEverythingFilterByDateRange('https://newsapi.org/v2/everything',
+    this.newsService.getEverythingFilterByDateRange('https://newsapi.org/v2/everything',
       value,startDate,endDate)
       .subscribe(
         res => {
