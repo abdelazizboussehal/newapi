@@ -21,6 +21,7 @@ export class ArticleListComponent implements OnInit {
     start: new FormControl(new Date(year, month, 13)),
     end: new FormControl(new Date(year, month, 16)),
   });
+  loading= false;
 
   constructor(private newsservice:NewsapiCrudService) { }
 
@@ -29,12 +30,17 @@ export class ArticleListComponent implements OnInit {
   }
 
   filterResults(value: string) {
-    this.newsservice.getEverything('https://newsapi.org/v2/everything',value).subscribe(
-      res => {
-        this.items = res.articles
-        this.backup = res.articles
-      }
-    );
+    if(value.trim()!=''){
+      this.loading =true;
+      this.newsservice.getEverything('https://newsapi.org/v2/everything',value).subscribe(
+        res => {
+          this.items = res.articles
+          this.backup = res.articles
+          this.loading =false;
+        }
+      );
+    }
+
   }
 
   updateStartDate(event:any) {

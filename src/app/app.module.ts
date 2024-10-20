@@ -11,6 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {CardModule} from "primeng/card";
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule, ReactiveFormsModule, CalendarModule,
-    CardModule
+    CardModule,
+    InputTextModule
   ],
   providers: [],
   bootstrap: [AppComponent]

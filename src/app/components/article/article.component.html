@@ -31,7 +31,7 @@
   <ng-template pTemplate="footer">
     <div class="flex gap-3 mt-1">
       <p>Published at {{article.publishedAt | date:'medium'}}</p>
-      <p-button label="View more" class="w-full" styleClass="w-full" (onClick)="readMore()" ) />
+      <p-button [link]="true"  label="View more" class="w-full" styleClass="w-full" (onClick)="readMore()" />
     </div>
   </ng-template>
 </p-card>
