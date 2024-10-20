@@ -15,6 +15,8 @@ const year = today.getFullYear();
 export class ArticleListComponent implements OnInit {
   items : Article[] =[];
   backup : Article[] =[];
+  rangeDates: Date[] | undefined;
+
   readonly campaignOne = new FormGroup({
     start: new FormControl(new Date(year, month, 13)),
     end: new FormControl(new Date(year, month, 16)),
@@ -48,7 +50,7 @@ export class ArticleListComponent implements OnInit {
     }
   }
   filterByDateRangeResults(value:string){
-    let startDate=formatDate(this.campaignOne.value.start, 'yyyy-MM-dd', 'en_US');
+  /*  let startDate=formatDate(this.campaignOne.value.start, 'yyyy-MM-dd', 'en_US');
     let endDate=formatDate(this.campaignOne.value.end, 'yyyy-MM-dd', 'en_US');
     this.newsservice.getEverythingFilterByDateRange('https://newsapi.org/v2/everything',
       value,startDate,endDate)
@@ -58,6 +60,6 @@ export class ArticleListComponent implements OnInit {
           this.items = res.articles
           this.backup = res.articles
         }
-      );
+      );*/
   }
 }

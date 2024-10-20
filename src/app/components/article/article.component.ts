@@ -17,6 +17,6 @@ export class ArticleComponent implements OnInit {
   }
 
   readMore() {
-
+    window.open(this.article.url, "_blank");
   }
 }

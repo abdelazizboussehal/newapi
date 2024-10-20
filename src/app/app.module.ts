@@ -6,15 +6,11 @@ import { AppComponent } from './app.component';
 import { ArticleComponent } from './components/article/article.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule } from '@angular/material/card';
-import {MatIconModule} from "@angular/material/icon";
 import { ArticleListComponent } from './components/article-list/article-list.component';
 import {HttpClientModule} from "@angular/common/http";
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {CalendarModule} from "primeng/calendar";
+import {CardModule} from "primeng/card";
 
 
 @NgModule({
@@ -28,12 +24,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatIconModule,
     HttpClientModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule, CalendarModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

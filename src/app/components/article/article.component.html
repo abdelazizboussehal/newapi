@@ -1,3 +1,4 @@
+<!--
 <mat-card class="mat-elevation-z4">
   <img class="card-image" mat-card-image [src]="article.urlToImage" />
   <mat-card-title>
@@ -19,3 +20,18 @@
     <p>Published at {{article.publishedAt | date:'medium'}}</p>
   </mat-card-footer>
 </mat-card>
+-->
+<p-card header="{{ article.title }}" subheader="source : {{article.source.name}}" [style]="{ width: '360px' }">
+  <ng-template pTemplate="header">
+    <img alt="Card" [src]="article.urlToImage" />
+  </ng-template>
+  <p>
+    {{ article.content }}
+  </p>
+  <ng-template pTemplate="footer">
+    <div class="flex gap-3 mt-1">
+      <p>Published at {{article.publishedAt | date:'medium'}}</p>
+      <p-button label="View more" class="w-full" styleClass="w-full" (onClick)="readMore()" ) />
+    </div>
+  </ng-template>
+</p-card>
