@@ -22,8 +22,12 @@ export class NewsapiCrudService {
   getEverything(url:string,searchQuery:string): Observable<Response>{
     //from=2024-09-19&
     let args = `q=${searchQuery}&sortBy=publishedAt&apiKey=${environment.apikey}`
-
     return this.http.get<Response>(`${url}?${args}`  );
+  }
 
+  getEverythingFilterByDateRange(url:string,searchQuery:string,startDate:string,endDate:string): Observable<Response>{
+    //&from=2024-10-19&to=2024-10-19&
+    let args = `q=${searchQuery}&from=${startDate}&to=${endDate}&sortBy=publishedAt&apiKey=${environment.apikey}`
+    return this.http.get<Response>(`${url}?${args}`  );
   }
 }

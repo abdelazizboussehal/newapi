@@ -16,20 +16,19 @@
           </mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>-->
-        <!--<mat-form-field class="example-form-field">
+        <mat-form-field class="example-form-field">
           <mat-label>First campaign</mat-label>
           <mat-date-range-input
             [formGroup]="campaignOne"
-            [rangePicker]="campaignOnePicker"
-            [comparisonStart]="campaignTwo.value.start"
-            [comparisonEnd]="campaignTwo.value.end">
+            [rangePicker]="campaignOnePicker">
             <input matStartDate placeholder="Start date" formControlName="start"  (dateChange)="updateStartDate($event)">
             <input matEndDate placeholder="End date" formControlName="end">
           </mat-date-range-input>
           <mat-hint>from MM/DD/YYYY – to MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
           <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
-        </mat-form-field>-->
+        </mat-form-field>
+        <button class="col-3 btn btn-outline-primary" (click)="filterByDateRangeResults(filter.value)">Search</button>
       </div>
       <div class="m-2"  *ngFor="let item of items">
         <app-article [article] ="item"></app-article>
