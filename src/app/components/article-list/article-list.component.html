@@ -43,7 +43,8 @@
 
 
       </div>
-      <div class="m-2" *ngFor="let item of items">
+      <!--https://www.youtube.com/watch?v=ywPOYBDlQoo-->
+      <div class="m-2" *ngFor="let item of items; trackBy: trackById; let i = index">
         <app-article [article]="item"></app-article>
       </div>
     </div>

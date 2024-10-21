@@ -44,10 +44,13 @@ export class ArticleListComponent implements OnInit {
         let endDate=formatDate(this.rangeDates[1], 'yyyy-MM-dd', 'en_US');
         this.newsService.getEverythingFilterByDateRange('https://newsapi.org/v2/everything',
           value,startDate,endDate)
-          .subscribe(
+          .subscribe (
             res => {
-              this.items = res.articles;
-              this.backup = res.articles;
+              this.items = res.articles.map((element, index) => ({
+                ...element,
+                id: index + 1
+              }));
+              this.backup = this.items;
               this.suggestions = this.backup.map(item => item.source.name);
               this.loading =false;
               if(this.selectedItem && this.selectedItem.trim()!=''){
@@ -59,8 +62,11 @@ export class ArticleListComponent implements OnInit {
       else{
         this.newsService.getEverything('https://newsapi.org/v2/everything',value).subscribe(
           res => {
-            this.items = res.articles;
-            this.backup = res.articles;
+            this.items = res.articles.map((element, index) => ({
+              ...element,
+              id: index + 1
+            }));
+            this.backup = this.items;
             this.suggestions = this.backup.map(item => item.source.name);
             this.loading =false;
             if(this.selectedItem && this.selectedItem.trim()!=''){
@@ -71,6 +77,10 @@ export class ArticleListComponent implements OnInit {
       }
 
     }
+  }
+  //https://www.youtube.com/watch?v=ywPOYBDlQoo
+  trackById(index:number){
+    return index;
   }
 
   updateStartDate(event:any) {
@@ -85,18 +95,5 @@ export class ArticleListComponent implements OnInit {
         return res.source.name.toLowerCase().trim().includes( value.toLowerCase().trim());
       });
     }
-  }
-  filterByDateRangeResults(value:string){
-  /*  let startDate=formatDate(this.campaignOne.value.start, 'yyyy-MM-dd', 'en_US');
-    let endDate=formatDate(this.campaignOne.value.end, 'yyyy-MM-dd', 'en_US');
-    this.newsService.getEverythingFilterByDateRange('https://newsapi.org/v2/everything',
-      value,startDate,endDate)
-      .subscribe(
-        res => {
-          console.log(res)
-          this.items = res.articles
-          this.backup = res.articles
-        }
-      );*/
   }
 }
