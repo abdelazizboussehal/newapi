@@ -7,13 +7,14 @@ import { ArticleComponent } from './components/article/article.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ArticleListComponent } from './components/article-list/article-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import { InputTextModule } from 'primeng/inputtext';
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {CheckboxModule} from "primeng/checkbox";
+import {CachingInterceptorInterceptor} from "./utilis/caching-interceptor.interceptor";
 
 
 @NgModule({
@@ -34,7 +35,11 @@ import {CheckboxModule} from "primeng/checkbox";
     AutoCompleteModule,
     CheckboxModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: CachingInterceptorInterceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
