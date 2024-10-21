@@ -33,3 +33,13 @@ nvm use v18.20.4
 ```bash
 ng serve
 ```
+
+## As bonus :p 
+dockerfile for testing app 
+just runt two commands 
+
+```bash
+docker build -t angular-app:latest .
+docker run -p 3380:80 angular-app:latest
+```
+on browser just tap localhost:3380
