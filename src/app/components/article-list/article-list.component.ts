@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NewsapiCrudService} from "../../utilis/newsapi-crud.service";
 import {Article} from "../../models/article";
-import {FormControl, FormGroup} from "@angular/forms";
 import {formatDate} from "@angular/common";
 import {AutoCompleteCompleteEvent} from "primeng/autocomplete";
-const today = new Date();
-const month = today.getMonth();
-const year = today.getFullYear();
+
 
 @Component({
   selector: 'app-article-list',
@@ -53,7 +50,7 @@ export class ArticleListComponent implements OnInit {
               this.backup = this.items;
               this.suggestions = this.backup.map(item => item.source.name);
               this.loading =false;
-              if(this.selectedItem && this.selectedItem.trim()!=''){
+              if(this.selectedItem && this.selectedItem.trim()!='' && this.filterList.includes('BySource')){
                 this.filterBySourceResults(this.selectedItem);
               }
             }
@@ -92,7 +89,6 @@ export class ArticleListComponent implements OnInit {
   }
 
   filterBySourceResults(value: string) {
-    console.log(value)
     this.items = this.backup;
     if (value && value.trim()!=''){
       this.items = this.items.filter(res => {

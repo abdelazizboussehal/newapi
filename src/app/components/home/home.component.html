@@ -1,1 +1,54 @@
-<app-article-list></app-article-list>
+<!-- Navbar using Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">NewsApp</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="sidebarVisible= !sidebarVisible">more</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- Sidebar or Additional Info -->
+      <p-sidebar [(visible)]="sidebarVisible">
+        <h1>Sidebar</h1>
+        <p>Useful links or other widgets go here.</p>
+      </p-sidebar>
+    </div>
+
+    <div class="col-md-6">
+      <!-- Main Content - News Articles -->
+      <h2 class="text-center">Latest News</h2>
+
+      <app-article-list></app-article-list>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Additional Right-Side Widgets -->
+      <p-card>
+        <h2>Related News</h2>
+        <ul>
+          <li>Related Article 1</li>
+          <li>Related Article 2</li>
+          <li>Related Article 3</li>
+        </ul>
+      </p-card>
+    </div>
+  </div>
+</div>

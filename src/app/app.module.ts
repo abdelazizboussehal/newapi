@@ -15,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {CheckboxModule} from "primeng/checkbox";
 import {CachingInterceptorInterceptor} from "./utilis/caching-interceptor.interceptor";
+import {SidebarModule} from "primeng/sidebar";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {CachingInterceptorInterceptor} from "./utilis/caching-interceptor.interc
     CardModule,
     InputTextModule,
     AutoCompleteModule,
-    CheckboxModule
+    CheckboxModule,
+    SidebarModule
   ],
   providers: [
     {
