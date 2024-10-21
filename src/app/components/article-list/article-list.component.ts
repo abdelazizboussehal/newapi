@@ -60,6 +60,7 @@ export class ArticleListComponent implements OnInit {
           );
       }
       else{
+        console.log('here')
         this.newsService.getEverything('https://newsapi.org/v2/everything',value).subscribe(
           res => {
             this.items = res.articles.map((element, index) => ({
@@ -72,6 +73,9 @@ export class ArticleListComponent implements OnInit {
             if(this.selectedItem && this.selectedItem.trim()!=''){
               this.filterBySourceResults(this.selectedItem);
             }
+          },
+          error => {
+            console.log('aziz'+error);
           }
         );
       }

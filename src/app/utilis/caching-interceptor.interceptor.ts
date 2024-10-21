@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -11,25 +11,25 @@ import {CachingServiceService} from "./caching-service.service";
 @Injectable()
 export class CachingInterceptorInterceptor implements HttpInterceptor {
 
-  constructor(private cacheService:CachingServiceService) {}
+  constructor(private cacheService: CachingServiceService) {
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
     const cacheKey = this.createCacheKey(request.urlWithParams, request.body);
     const cachedResponse = this.cacheService.getCache(cacheKey);
-    console.log(cachedResponse)
-    debugger;
     if (cachedResponse) {
-      return of(cachedResponse);// Return cached response if available
+      return of(new HttpResponse({status: 200, body: cachedResponse}));
     }
 
     return next.handle(request).pipe(
       tap((event) => {
         if (event instanceof HttpResponse) {
-          this.cacheService.setCache(cacheKey, {data : event});
+          this.cacheService.setCache(cacheKey, {data: event});
         }
       })
     );
   }
+
   // hash method i get it from https://mohanbyte.medium.com/caching-api-requests-in-angular-better-faster-and-stronger-b3aa7c675be4
   private simpleHash(str: string): string {
     let hash = 0;
@@ -41,6 +41,7 @@ export class CachingInterceptorInterceptor implements HttpInterceptor {
     }
     return hash.toString();
   }
+
   private createCacheKey(url: string, body: any): string {
     const bodyHash = this.simpleHash(JSON.stringify(body)).toString();
 
